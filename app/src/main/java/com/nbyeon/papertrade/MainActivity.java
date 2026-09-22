@@ -130,7 +130,7 @@ public final class MainActivity extends Activity {
         v.setBackground(shape(SURFACE, 15, BORDER)); return v;
     }
     private void render() {
-        root = column(); root.setBackgroundColor(BG);
+        root = column(); root.setBackgroundColor(BG); root.setFocusableInTouchMode(true);
         root.setOnApplyWindowInsetsListener((v, insets) -> {
             if (android.os.Build.VERSION.SDK_INT >= 30) {
                 android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.ime());
@@ -140,6 +140,7 @@ public final class MainActivity extends Activity {
             return insets;
         });
         setContentView(root);
+        root.requestFocus();
         root.requestApplyInsets();
         ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.setVerticalScrollBarEnabled(false);
         body = column(); body.setPadding(dp(22), dp(20), dp(22), dp(24));
@@ -150,6 +151,14 @@ public final class MainActivity extends Activity {
             case "Portfolio": portfolio(); break;
             case "Orders": orders(); break;
             default: markets();
+        }
+        if (selected != null) {
+            DemoBroker.Stock stock = DemoBroker.stock(selected);
+            LinearLayout tradeBar = row(); tradeBar.setPadding(dp(22), dp(12), dp(22), dp(12));
+            tradeBar.setBackgroundColor(BG);
+            weighted(tradeBar, button("Buy " + stock.symbol, ACCENT, BG, () -> showOrder(stock, true)));
+            gap(tradeBar, 12); weighted(tradeBar, button("Sell", SURFACE, RED, () -> showOrder(stock, false)));
+            divider(root); root.addView(tradeBar);
         }
         divider(root); navigation();
     }
@@ -299,10 +308,6 @@ public final class MainActivity extends Activity {
         DemoBroker.Position p = broker.positions.get(stock.symbol);
         dataRow(stats, "Your position", (p == null ? 0 : p.quantity) + " shares");
         body.addView(stats); space(body, 22);
-        LinearLayout actions = row();
-        weighted(actions, button("Buy " + stock.symbol, ACCENT, BG, () -> showOrder(stock, true)));
-        gap(actions, 12); weighted(actions, button("Sell", SURFACE, RED, () -> showOrder(stock, false)));
-        body.addView(actions); space(body, 16);
         body.addView(text("Paper trading only. Charts are synthetic illustrations.", 11, MUTED, false));
     }
     private void dataRow(LinearLayout parent, String label, String value) {
@@ -428,4 +433,5 @@ public final class MainActivity extends Activity {
         else super.onBackPressed();
     }
 }
+
 
