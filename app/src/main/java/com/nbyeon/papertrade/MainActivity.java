@@ -162,7 +162,8 @@ public final class MainActivity extends Activity {
             LinearLayout item = column(); item.setGravity(Gravity.CENTER); item.setPadding(0, dp(10), 0, dp(10));
             TextView icon = text(icons[i], 23, active ? ACCENT : MUTED, false); icon.setGravity(Gravity.CENTER);
             item.addView(icon); space(item, 3);
-            item.addView(text(name, 10, active ? ACCENT : MUTED, active));
+            TextView label = text(name, 10, active ? ACCENT : MUTED, active);
+            label.setGravity(Gravity.CENTER); item.addView(label);
             item.setContentDescription(name + " tab"); item.setFocusable(true);
             item.setOnClickListener(v -> { section = name; selected = null; render(); });
             nav.addView(item, new LinearLayout.LayoutParams(0, dp(72), 1));
@@ -188,8 +189,11 @@ public final class MainActivity extends Activity {
         info.addView(text("NVIDIA", 22, TEXT, true)); space(info, 4);
         info.addView(text("NVDA  ·  Semiconductors", 11, MUTED, false)); weighted(featureRow, info);
         LinearLayout price = column(); price.setGravity(Gravity.END);
-        price.addView(text("$127.84", 22, TEXT, true)); space(price, 4);
-        price.addView(text("+2.34% today", 12, GREEN, true)); featureRow.addView(price); feature.addView(featureRow);
+        TextView featuredPrice = text("$127.84", 22, TEXT, true); featuredPrice.setGravity(Gravity.END);
+        price.addView(featuredPrice); space(price, 4);
+        TextView featuredChange = text("+2.34% today", 12, GREEN, true); featuredChange.setGravity(Gravity.END);
+        price.addView(featuredChange);
+        featureRow.addView(price, new LinearLayout.LayoutParams(dp(125), -2)); feature.addView(featureRow);
         ChartView chart = new ChartView(this, 41, GREEN, true);
         feature.addView(chart, new LinearLayout.LayoutParams(-1, dp(62)));
         TextView explore = text("Explore stock  →", 12, ACCENT, true); feature.addView(explore);
@@ -424,3 +428,4 @@ public final class MainActivity extends Activity {
         else super.onBackPressed();
     }
 }
+

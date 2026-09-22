@@ -59,6 +59,13 @@ public class MainActivityTest {
         File dir = new File("build/screenshots"); assertTrue(dir.isDirectory() || dir.mkdirs());
         try (OutputStream out = new FileOutputStream(new File(dir, name + ".png"))) { bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); }
         bitmap.recycle();
+        try (PrintWriter writer = new PrintWriter(new File(dir, name + "-layout.txt"))) { dump(view, writer, 0); }
+    }
+    private void dump(View view, PrintWriter writer, int depth) {
+        int[] xy = new int[2]; view.getLocationOnScreen(xy);
+        writer.println(" ".repeat(depth) + view.getClass().getSimpleName() + " " + xy[0] + "," + xy[1] + " " + view.getWidth() + "x" + view.getHeight() +
+            (view instanceof TextView ? " " + ((TextView) view).getText() : ""));
+        if (view instanceof ViewGroup) for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) dump(((ViewGroup) view).getChildAt(i), writer, depth + 1);
     }
     @Test public void screensAndSearch() throws Exception {
         screenshot("01-markets");
