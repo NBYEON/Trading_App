@@ -35,7 +35,7 @@ public class MainActivityTest {
     @After public void close() { controller.pause().stop().destroy(); }
     private View root() { return activity.getWindow().getDecorView(); }
     private View find(View view, String label) {
-        if (view instanceof TextView && ((TextView) view).getText().toString().equals(label)) return view;
+        if (view instanceof TextView && !(view instanceof EditText) && ((TextView) view).getText().toString().equals(label)) return view;
         if (label.contentEquals(view.getContentDescription() == null ? "" : view.getContentDescription())) return view;
         if (view instanceof ViewGroup) {
             ViewGroup group = (ViewGroup) view;
