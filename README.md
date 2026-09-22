@@ -17,7 +17,7 @@ Design: near-black canvas, slate panels, lime primary actions, mint gains, rose 
 
 1. Install Android Studio with Android SDK Platform 35 and JDK 17.
 2. Open this repository as a Gradle project and let Android Studio sync.
-3. Run the **app** configuration on an Android 8.0 (API 26) or newer emulator/device.
+3. Run the **app** configuration on an Android 10 (API 29) or newer emulator/device.
 
 Build tooling: Android Gradle Plugin 8.9.2 and Gradle 8.11.1. The official Gradle wrapper is included with a pinned distribution checksum. On Windows, use `gradlew.bat`.
 
@@ -56,3 +56,4 @@ This is a GUI prototype with a local demonstration model, **not the Spring Boot/
 The next portfolio milestone is replacing the local model with a Java REST service and PostgreSQL transactions while preserving this UI. Production validation must also cover authorization, durable idempotency, concurrency across clients and recovery.
 
 Visual reference: [Webull trading platforms](https://www.webull.com/trading-platforms). No Webull logos, screenshots or proprietary assets are bundled.
+

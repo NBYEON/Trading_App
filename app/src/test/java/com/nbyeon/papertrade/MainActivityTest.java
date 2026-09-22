@@ -97,10 +97,11 @@ public class MainActivityTest {
         controller.recreate(); activity = controller.get();
         assertNotNull(find(root(), "FILLED"));
     }
-    @Test public void stockSelectionSurvivesRecreation() {
+    @Test @Config(sdk = 29) public void stockSelectionSurvivesRecreation() {
         click("TSLA"); click("1M");
         controller.recreate(); activity = controller.get();
         assertNotNull(find(root(), "Buy TSLA"));
     }
 }
+
 
