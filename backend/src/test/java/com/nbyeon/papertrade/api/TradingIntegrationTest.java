@@ -1,20 +1,26 @@
 package com.nbyeon.papertrade.api;
 
 import java.util.UUID;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import static org.junit.jupiter.api.Assertions.*;
 import static com.nbyeon.papertrade.api.Models.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TradingIntegrationTest {
     @Autowired TradingService service;
     @Autowired JdbcTemplate jdbc;
+    @Value("${local.server.port}") int port;
 
     @BeforeEach void resetDemoAccount() {
         jdbc.update("DELETE FROM orders");
@@ -60,6 +66,21 @@ class TradingIntegrationTest {
             assertEquals(0, service.account().cash());
             assertEquals(1, service.account().orders().size());
         } finally { pool.shutdownNow(); }
+    }
+    @Test void androidJsonContractWorksOverHttp() throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        String base = "http://127.0.0.1:" + port + "/api";
+        HttpResponse<String> account = client.send(HttpRequest.newBuilder(URI.create(base + "/account")).GET().build(),
+            HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, account.statusCode());
+        assertTrue(account.body().contains("\"cash\":2475000"));
+        UUID id = UUID.randomUUID();
+        String order = "{\"id\":\"" + id + "\",\"symbol\":\"NVDA\",\"buy\":true,\"quantity\":2}";
+        HttpResponse<String> fill = client.send(HttpRequest.newBuilder(URI.create(base + "/orders"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(order)).build(), HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, fill.statusCode());
+        assertTrue(fill.body().contains("\"total\":25568"));
     }
     private void attempt(CountDownLatch start, AtomicInteger filled) {
         try {
