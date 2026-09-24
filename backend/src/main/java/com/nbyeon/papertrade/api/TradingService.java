@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.nbyeon.papertrade.api.Models.*;
 
 @Service
-public final class TradingService {
+public class TradingService {
     private final TradingRepository repository;
     TradingService(TradingRepository repository) { this.repository = repository; }
     public List<Stock> stocks() { return repository.stocks(); }

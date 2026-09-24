@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import static com.nbyeon.papertrade.api.Models.*;
 
 @Repository
-public final class TradingRepository {
+public class TradingRepository {
     private final JdbcTemplate jdbc;
     TradingRepository(JdbcTemplate jdbc) { this.jdbc = jdbc; }
 
