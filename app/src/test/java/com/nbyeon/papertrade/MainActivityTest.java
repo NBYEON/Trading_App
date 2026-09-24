@@ -119,7 +119,7 @@ public class MainActivityTest {
         };
         controller.recreate(); activity = controller.get();
         click("NVDA"); click("Buy NVDA");
-        assertEquals("Connect to demo server", ShadowAlertDialog.getLatestAlertDialog().getTitle());
+        assertNotNull(find(ShadowAlertDialog.getLatestAlertDialog().getWindow().getDecorView(), "Connect to demo server"));
     }
 }
 
