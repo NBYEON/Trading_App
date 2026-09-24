@@ -73,6 +73,7 @@ public final class MainActivity extends Activity {
         super.onDestroy();
     }
     static String money(long cents) { return MONEY.format(cents / 100.0); }
+    /** Rebuilds the selected screen after navigation or an account refresh. */
     void render() {
         root = ui.column(); root.setBackgroundColor(BG); root.setFocusableInTouchMode(true);
         root.setOnApplyWindowInsetsListener((v, insets) -> {

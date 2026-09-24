@@ -10,6 +10,7 @@ import static com.nbyeon.papertrade.MainActivity.*;
 /** Validates and submits a reviewed paper order through the server gateway. */
 final class OrderTicket extends UiKit {
     OrderTicket(MainActivity activity) { super(activity); }
+    /** Reviews input locally; only the confirmed request can change server state. */
     void showOrder(DemoBroker.Stock stock, boolean buy) {
         if (!a.online) {
             new AlertDialog.Builder(a).setTitle("Connect to demo server")

@@ -17,6 +17,7 @@ final class ApiClient implements TradingGateway {
     ApiClient(String baseUrl) { this.baseUrl = baseUrl; }
     void close() { executor.shutdownNow(); }
 
+    /** Fetches quotes and account state off the UI thread, then delivers a snapshot. */
     @Override public void load(Callback<DemoBroker> callback) {
         executor.execute(() -> {
             try {
@@ -46,6 +47,7 @@ final class ApiClient implements TradingGateway {
         });
     }
 
+    /** Sends the stable request ID to let the server recognize a retry. */
     @Override public void submit(String id, String symbol, boolean buy, int quantity, Callback<DemoBroker.Order> callback) {
         executor.execute(() -> {
             try {

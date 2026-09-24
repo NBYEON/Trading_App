@@ -21,6 +21,7 @@ public class TradingRepository {
             (rs, n) -> new Stock(rs.getString(1), rs.getString(2), rs.getString(3), rs.getLong(4), rs.getDouble(5)), symbol);
         return matches.isEmpty() ? null : matches.get(0);
     }
+    /** Joins the normalized account tables into the snapshot returned to Android. */
     Account account() {
         Long cash = jdbc.queryForObject("SELECT cash_cents FROM accounts WHERE id=1", Long.class);
         List<Position> positions = jdbc.query("SELECT symbol,quantity,cost_cents FROM positions WHERE account_id=1 ORDER BY symbol",
