@@ -27,12 +27,20 @@ import static org.robolectric.Shadows.shadowOf;
 public class MainActivityTest {
     private ActivityController<MainActivity> controller;
     private MainActivity activity;
+    private final DemoBroker server = new DemoBroker();
     @Before public void setup() {
         RuntimeEnvironment.getApplication().getSharedPreferences("papertrade", Context.MODE_PRIVATE).edit().clear().commit();
+        MainActivity.testGateway = new TradingGateway() {
+            public void load(Callback<DemoBroker> callback) { callback.success(server); }
+            public void submit(String id, String symbol, boolean buy, int quantity, Callback<DemoBroker.Order> callback) {
+                try { callback.success(server.execute(id, symbol, buy, quantity)); }
+                catch (IllegalArgumentException e) { callback.failure(e.getMessage()); }
+            }
+        };
         controller = Robolectric.buildActivity(MainActivity.class).setup();
         activity = controller.get();
     }
-    @After public void close() { controller.pause().stop().destroy(); }
+    @After public void close() { controller.pause().stop().destroy(); MainActivity.testGateway = null; }
     private View root() { return activity.getWindow().getDecorView(); }
     private View find(View view, String label) {
         if (view instanceof TextView && !(view instanceof EditText) && ((TextView) view).getText().toString().equals(label)) return view;
@@ -101,6 +109,17 @@ public class MainActivityTest {
         click("TSLA"); click("1M");
         controller.recreate(); activity = controller.get();
         assertNotNull(find(root(), "Buy TSLA"));
+    }
+    @Test public void disconnectedAccountIsReadOnly() {
+        MainActivity.testGateway = new TradingGateway() {
+            public void load(Callback<DemoBroker> callback) { callback.failure("Server offline"); }
+            public void submit(String id, String symbol, boolean buy, int quantity, Callback<DemoBroker.Order> callback) {
+                fail("Offline order must never be sent");
+            }
+        };
+        controller.recreate(); activity = controller.get();
+        click("NVDA"); click("Buy NVDA");
+        assertEquals("Connect to demo server", ShadowAlertDialog.getLatestAlertDialog().getTitle());
     }
 }
 
