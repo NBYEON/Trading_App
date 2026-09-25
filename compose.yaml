@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: papertrade
+      POSTGRES_USER: papertrade
+      POSTGRES_PASSWORD: papertrade
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - papertrade_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U papertrade -d papertrade"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  api:
+    image: maven:3.9.11-eclipse-temurin-17
+    working_dir: /workspace
+    volumes:
+      - ./backend:/workspace
+      - maven_cache:/root/.m2
+    command: mvn spring-boot:run
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/papertrade
+      DB_USER: papertrade
+      DB_PASSWORD: papertrade
+      SERVER_ADDRESS: 0.0.0.0
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  papertrade_db:
+  maven_cache:

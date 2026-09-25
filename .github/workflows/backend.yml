@@ -1,0 +1,29 @@
+name: Backend PostgreSQL checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: papertrade
+          POSTGRES_USER: papertrade
+          POSTGRES_PASSWORD: papertrade
+        ports: [5432:5432]
+        options: >-
+          --health-cmd "pg_isready -U papertrade -d papertrade"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: mvn -B -f backend/pom.xml verify
