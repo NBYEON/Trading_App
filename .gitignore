@@ -2,6 +2,6 @@
 .idea/
 local.properties
 **/build/
+**/target/
 *.iml
 .tools/
-

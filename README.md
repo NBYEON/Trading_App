@@ -15,9 +15,9 @@ Design: near-black canvas, slate panels, lime primary actions, mint gains, rose 
 
 ## Open and run
 
-1. Install Android Studio with Android SDK Platform 35 and JDK 17, plus Maven and PostgreSQL 17. Docker Desktop can start PostgreSQL using the included Compose file.
-2. Start PostgreSQL. With Docker, run `docker compose up -d db`. For an existing PostgreSQL installation, create a `papertrade` database and user and set `DB_URL`, `DB_USER`, and `DB_PASSWORD` for the API.
-3. Start the API with `mvn -f backend/pom.xml spring-boot:run`. Flyway creates the schema and one demo account. Verify `http://localhost:8080/api/stocks` in your browser.
+1. Install Android Studio with Android SDK Platform 35. Install Docker Desktop to run both the API and PostgreSQL with one command, or install JDK 17, Maven and PostgreSQL 17 to run them locally.
+2. From the repository root, run `docker compose up -d`. Docker starts PostgreSQL and then the API after the database is healthy. The first run downloads the Maven image and dependencies. To run the API outside Docker instead, run `docker compose up -d db` followed by `mvn -f backend/pom.xml spring-boot:run` in a separate terminal. For an existing PostgreSQL installation, create a `papertrade` database and user and set `DB_URL`, `DB_USER`, and `DB_PASSWORD` for the API.
+3. Flyway creates the schema and one demo account. Verify `http://localhost:8080/api/stocks` in your browser. If startup fails, check `docker compose logs api --tail=80`.
 4. Open the repository root in Android Studio as a Gradle project, wait for sync, then run the **app** configuration on an Android 10 (API 29) or newer emulator.
 5. The Android emulator connects to the server at `http://10.0.2.2:8080/api`. Its `localhost` is the emulator, not your computer. For a physical phone, set `papertradeApiUrl` to your computer's reachable address and configure the server to listen on that interface; use HTTPS outside a trusted development network.
 
