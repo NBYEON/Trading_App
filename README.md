@@ -86,4 +86,4 @@ mvn -f backend/pom.xml verify
 Windows에서는 `gradlew.bat`을 사용합니다. GitHub Actions는 APK 빌드, Android 단위·Robolectric UI 테스트, lint, PostgreSQL 연동 테스트를 실행합니다. APK는 Actions의 `papertrade-build` 아티팩트 또는 `app/build/outputs/apk/debug/app-debug.apk`에서 찾을 수 있습니다.
 
 ## 시현영상
-<img width="170" alt="Image" src="https://github.com/user-attachments/assets/7af2e30c-249a-4c37-9dec-d49832353938" />
+<img width="330" alt="Image" src="https://github.com/user-attachments/assets/7af2e30c-249a-4c37-9dec-d49832353938" />
