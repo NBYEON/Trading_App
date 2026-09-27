@@ -83,10 +83,4 @@ Android Gradle Plugin 8.13.2, Gradle 8.13, Spring Boot 4.1.1, Java 17을 사용�
 mvn -f backend/pom.xml verify
 ```
 
-Windows에서는 `gradlew.bat`을 사용합니다. GitHub Actions는 APK 빌드, Android 단위·Robolectric UI 테스트, lint, PostgreSQL 연동 테스트를 실행합니다. APK는 Actions의 `papertrade-build` 아티팩트 또는 `app/build/outputs/apk/debug/app-debug.apk`에서 찾을 수 있습니다. 백엔드 연동 테스트는 예시 계좌를 초기화하므로 개인 데모 데이터가 들어 있는 DB와 분리해서 실행하세요.
-
-## 범위와 한계
-
-이 프로젝트는 단일 계좌를 쓰는 학습용 시연입니다. 사용자 인증, 실시간 시세, 거래소 주문 매칭, 부분 체결은 구현하지 않았습니다. 외부에 공개하려면 HTTPS, 인증·권한 검사, 운영 통제와 원장 설계가 필요합니다.
-
-화면 디자인은 [Webull 거래 플랫폼](https://www.webull.com/trading-platforms)을 참고했으며, Webull 로고·스크린샷·전용 에셋은 사용하지 않았습니다.
+Windows에서는 `gradlew.bat`을 사용합니다. GitHub Actions는 APK 빌드, Android 단위·Robolectric UI 테스트, lint, PostgreSQL 연동 테스트를 실행합니다. APK는 Actions의 `papertrade-build` 아티팩트 또는 `app/build/outputs/apk/debug/app-debug.apk`에서 찾을 수 있습니다.
