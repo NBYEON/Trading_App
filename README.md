@@ -1,17 +1,16 @@
-# PaperTrade: 가상 거래 시스템
+## PaperTrade: 가상 거래 시스템
 
 자바로 제작된 안드로이드 클라이언트. Spring Boot API로 증권 갱신,  PostgreSQL로 계정 저장. 
 
-## Screens
+## FlowChart
 
-- **Markets:** index cards, featured stock, searchable six-stock market list and sparklines.
-- **Watchlist:** persisted favorites; add or remove a stock from its detail page.
-- **Stock detail:** synthetic line/candlestick chart, six illustrative ranges, quote details and buy/sell actions.
-- **Order ticket:** quantity validation, estimated total, review confirmation and server-recorded simulated fills.
-- **Portfolio:** virtual cash, positions, average cost and unrealized profit/loss.
-- **Orders:** empty state and persisted filled-order history.
-
-Design: near-black canvas, slate panels, lime primary actions, mint gains, rose losses, restrained borders and tabular price figures. Native scrolling, system insets, labeled controls and four-tab navigation.
+## 메인화면
+<div>
+<img width="567" height="1224" alt="Image" src="https://github.com/user-attachments/assets/89510192-7895-4704-b364-7f2bc1816ae8" />
+<img width="563" height="1237" alt="Image" src="https://github.com/user-attachments/assets/7b77e385-2a17-44ef-9467-5cc54bb1d5f8" />
+<img width="576" height="1238" alt="Image" src="https://github.com/user-attachments/assets/bafac4b1-b1dc-47c2-82e2-2252e1a69f91" />
+<img width="574" height="1232" alt="Image" src="https://github.com/user-attachments/assets/26f355f4-3147-4689-86b2-93a803a65f77" />
+</div>
 
 ## Open and run
 
