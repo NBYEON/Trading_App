@@ -1,6 +1,6 @@
-# PaperTrade — Android securities UI
+# PaperTrade: 가상 거래 시스템
 
-A Java Android client with a Webull-inspired dark interface, a Spring Boot API, and PostgreSQL account storage. All prices, charts, funds and executions are **simulated**. No brokerage connection, live data, or real-money transactions.
+자바로 제작된 안드로이드 클라이언트. Spring Boot API로 증권 갱신,  PostgreSQL로 계정 저장. 
 
 ## Screens
 
@@ -66,10 +66,3 @@ Manual device checklist:
 - Stop the server: cached data should remain visible and new orders should be blocked. Restart it and tap Retry.
 - Reject insufficient cash, overselling, blank and zero quantities.
 - Cancel an order, rotate the device and verify there is no unintended fill.
-
-## Scope and next steps
-
-This is a demonstration system. It has no authentication, exchange matching, partial fills or real-time market feeds. Order execution is immediate at seeded prices. Before exposing it beyond a development machine, add account authentication and authorization, HTTPS, operational controls and a proper ledger.
-
-Visual reference: [Webull trading platforms](https://www.webull.com/trading-platforms). No Webull logos, screenshots or proprietary assets are bundled.
-
