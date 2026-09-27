@@ -12,7 +12,6 @@ Java로 만든 안드로이드 모의 주식 거래 앱입니다. Spring Boot AP
     <td><img src="https://github.com/user-attachments/assets/26f355f4-3147-4689-86b2-93a803a65f77" alt="PaperTrade 앱 화면 4" width="170"></td>
   </tr>
 </table>
-<img width="480" height="925" alt="Image" src="https://github.com/user-attachments/assets/7af2e30c-249a-4c37-9dec-d49832353938" />
 
 ## 주요 기능
 
@@ -85,3 +84,6 @@ mvn -f backend/pom.xml verify
 ```
 
 Windows에서는 `gradlew.bat`을 사용합니다. GitHub Actions는 APK 빌드, Android 단위·Robolectric UI 테스트, lint, PostgreSQL 연동 테스트를 실행합니다. APK는 Actions의 `papertrade-build` 아티팩트 또는 `app/build/outputs/apk/debug/app-debug.apk`에서 찾을 수 있습니다.
+
+## 시현영상
+<img width="170" alt="Image" src="https://github.com/user-attachments/assets/7af2e30c-249a-4c37-9dec-d49832353938" />
