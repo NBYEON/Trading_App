@@ -12,6 +12,7 @@ Java로 만든 안드로이드 모의 주식 거래 앱입니다. Spring Boot AP
     <td><img src="https://github.com/user-attachments/assets/26f355f4-3147-4689-86b2-93a803a65f77" alt="PaperTrade 앱 화면 4" width="170"></td>
   </tr>
 </table>
+<img width="480" height="925" alt="Image" src="https://github.com/user-attachments/assets/7af2e30c-249a-4c37-9dec-d49832353938" />
 
 ## 주요 기능
 
